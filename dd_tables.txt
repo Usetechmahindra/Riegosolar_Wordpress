@@ -1,0 +1,13 @@
+CREATE TABLE `ddb86528`.`adminrapberry` 
+( `idadmin` INT NOT NULL AUTO_INCREMENT , 
+`usuario` VARCHAR(30) NOT NULL ,
+ `password` VARCHAR(30) NOT NULL ,
+ `comentario` VARCHAR(150) NULL ,
+ `falta` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+ PRIMARY KEY (`idadmin`)) ENGINE = MyISAM;
+ 
+ INSERT INTO `ddb86528`.`adminrapberry` 
+ (`idadmin`, `usuario`, `password`, `comentario`, `falta`) 
+ VALUES 
+ (NULL, 'admin', md5('Riegosolar2017'), 'Usuario administrador alta raspberrys/usuarios rapberrys', CURRENT_TIMESTAMP);
+ 

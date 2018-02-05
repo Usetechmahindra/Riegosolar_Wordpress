@@ -1,0 +1,41 @@
+[insert_php]
+// creamos la sesion del plugin de WP y comprobamos si el user ha dado al boton del form.
+$wp_session = WP_Session::get_instance();
+
+require(ABSPATH.'/includes/wp-riegofuntions.php');
+if($_POST['btenviado'])
+{
+//Si se ha dado al boton metemos variables
+//echo 'La variable ABSPATH de WordPress es:'.ABSPATH;
+//echo 'La B.D. de Don Dominio es:'.DB_NAME;
+$vuseradmin=$_POST['useradmin'];
+$vpassadmin=$_POST['passadmin'];
+if (LoginAdmin($vuseradmin, $vpassadmin) == true)
+{
+// Redir.
+$url = "www.riegosolar.net/es/seleccionar-administracion";
+echo '<script type="text/javascript">// <![CDATA[
+window.open("http://'.$url.'","_self")
+// ]]></script>';
+}
+}
+[/insert_php]
+<h5>Acceso administración instalaciones</h5>
+<div id="imputloginadmin"><form id="loginadmin" action="" method="post">
+<table border="0">
+<tbody>
+<tr>
+<td>Usuario:
+<input name="useradmin" type="text" />
+Contraseña:
+<input name="passadmin" type="password" /></td>
+</tr>
+<tr>
+<td><input name="btenviado" type="submit" value="Validar" /></td>
+</tr>
+</tbody>
+</table>
+</form></div>
+[insert_php]
+echo $wp_session['textsesion'];
+[/insert_php]

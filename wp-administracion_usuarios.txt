@@ -1,0 +1,46 @@
+[insert_php]
+// creamos la sesion del plugin de WP y comprobamos si el user ha dado al boton del form.
+$wp_session = WP_Session::get_instance();
+
+require(ABSPATH.'/includes/wp-riegofuntions.php');
+
+if ($_POST['cbinstall'] == '0')
+{
+echo "Debe seleccionar alguna instalación";
+}else {
+// Crear/actualizar usuario
+updateuser($_POST['cbinstall']);
+echo $wp_session['textsesion'];
+}
+
+[/insert_php]
+<h4>Administración de usuarios</h4>
+<div id="usuario"><form id="usuario" action="" method="post">
+<table border="0">
+<tbody>
+<tr>
+<td>
+Instalación
+<select name="cbinstall">
+[insert_php]
+// Cargar combo con las instalaciones disponibles
+cbinstall();
+[/insert_php]
+</select>
+</td>
+</tr>
+<tr>
+<td>Nombre:
+<input id="nombre" name="nombre" size="30"[insert_php] echo" value=".$_POST['nombre'].">"; [/insert_php]
+</td>
+<td>
+Password:
+<input type="password" id="password" name="password" size="30"[insert_php] echo" value=".$_POST['password'].">"; [/insert_php]
+</td>
+</tr>
+<tr>
+<td><input name="btupdate" type="submit" value="Actualizar/Crear" /></td>
+</tr>
+</tbody>
+</table>
+</form></div>

@@ -1,0 +1,36 @@
+[insert_php]
+// creamos la sesion del plugin de WP y comprobamos si el user ha dado al boton del form.
+$wp_session = WP_Session::get_instance();
+
+require(ABSPATH.'/includes/wp-riegofuntions.php');
+if($_POST['btopcion'])
+{
+//Si se ha dado al boton metemos variables
+//echo 'La variable ABSPATH de WordPress es:'.ABSPATH;
+//echo 'La B.D. de Don Dominio es:'.DB_NAME;
+
+// Redir.
+$url = "www.riegosolar.net/es/".$_POST['opcion'];
+echo $url;
+echo '<script type="text/javascript">// <![CDATA[
+window.open("http://'.$url.'","_self")
+// ]]></script>';
+}
+
+[/insert_php]
+
+<h5>Seleccionar administración</h5>
+<div id="select"><form id="select" action="" method="post">
+<table border="0">
+<tbody>
+<tr>
+<td>Opción: 
+<select name="opcion" id="opcion">
+<option value="administracion_instalaciones">Administrar instalaciones</option>
+<option value="administracion_usuarios">Administrar usuarios instalación</option>
+</select>
+<input name="btopcion" type="submit" value="Ir"/></td>
+</tr>
+</tbody>
+</table>
+</form></div>

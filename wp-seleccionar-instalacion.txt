@@ -1,0 +1,39 @@
+[insert_php]
+// creamos la sesion y comprobamos si el user ha dado al boton del form.
+$wp_session = WP_Session::get_instance();
+
+require(ABSPATH.'/includes/wp-riegofuntions.php');
+// Controlar el valor del post
+if (!$_POST['cbinstall'] == '0')
+{
+Redirect($_POST['cbinstall']);
+}
+[/insert_php]
+
+<h4>Seleccione la instalación que desea administrar</h4>
+<div id="form_install">
+<form id="finstall" method="post"> 
+   <table border="0">
+          <thead>
+          </thead>
+          <tbody>
+              <tr>
+                  <td>
+                  Instalación
+                  <select name="cbinstall">
+                        [insert_php]
+                             // Cargar combo con las instalaciones disponibles
+                             InstallUser();
+                        [/insert_php]
+                  </select>
+                  </td>
+              </tr>
+              <tr>
+                   <td>
+                        <input type="submit" value="Abrir"/>
+                   </td>
+              </tr>
+          </tbody>
+   </table>
+</form>
+</div>

@@ -1,0 +1,60 @@
+https://www.inkthemes.com/how-you-can-easily-create-customized-form-in-wordpress/
+
+// Formulario de introducción
+<form name="customer_details" method="POST" onsubmit="return form_validation()" action="../customer-details.php">
+Your Name: <input type="text" id="customer_name" name="customer_name" /><br />
+Your Email: <input type="text" id="customer_email" name="customer_email" /><br />
+Sex: <input type="radio" name="customer_sex" value="male">Male <input type="radio" name="customer_sex" value="female">Female<br />
+Your Age: <input type="text" id="customer_age" name="customer_age" /><br />
+<input type="submit" value="Submit"/>
+</form>
+
+// Funcion de validacion
+<script type="text/javascript">
+function form_validation() {
+/* Check the Customer Name for blank submission*/
+var customer_name = document.forms["customer_details"]["customer_name"].value;
+if (customer_name == "" || customer_name == null) {
+alert("Name field must be filled.");
+return false;
+}
+
+/* Check the Customer Email for invalid format */
+var customer_email = document.forms["customer_details"]["customer_email"].value;
+var at_position = customer_email.indexOf("@");
+var dot_position = customer_email.lastIndexOf(".");
+if (at_position<1 || dot_position<at_position+2 || dot_position+2>=customer_email.length) {
+alert(“Given email address is not valid.");
+return false;
+}
+}
+</script>
+
+/----------------------------------------------------------------------------------------------/
+//Server side script wp-config.php // Conexion
+define('DB_NAME','');
+define('DB_USER','');
+
+//customer-details.php
+<?php
+// Get data
+$customer_name = $_POST["customer_name"];
+$customer_email = $_POST["customer_email"];
+$customer_sex = $_POST["customer_sex"];
+$customer_age = $_POST["customer_age"];
+
+// Database connection
+$conn = mysqli_connect("Database Host","Database Username","Database Password","Database Name");
+if(!$conn) {
+die(‘Problem in database connection: ‘ . mysql_error());
+}
+
+// Data insertion into database
+$query = "INSERT INTO ‘Database Name’.’Table Name’ ( ‘customer_name’, ‘customer_email’, ‘customer_sex’, ‘customer_age’ ) VALUES ( $customer_name, $customer_email, $customer_sex, $customer_age )";
+mysqli_query($conn, $query);
+
+// Redirection to the success page
+header("Location: http://suceess_page");
+?>
+
+// Crear pagina de redireccion

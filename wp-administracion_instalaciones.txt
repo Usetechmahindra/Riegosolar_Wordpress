@@ -1,0 +1,77 @@
+[insert_php]
+// creamos la sesion del plugin de WP y comprobamos si el user ha dado al boton del form.
+$wp_session = WP_Session::get_instance();
+
+require(ABSPATH.'/includes/wp-riegofuntions.php');
+if($_POST['btbuscar'])
+{
+if(findinstall($_POST['nombreb']) == false)
+{
+echo $wp_session['textsesion'];
+}
+}
+// Controlar update/insert instalacion
+if($_POST['btupdate'])
+{
+if(updateinstall() == false)
+{
+echo "Error al actualizar/crear instalación";
+}
+}
+[/insert_php]
+<h5>Administración instalaciones</h5>
+<div id="imputinstall"><form id="imputinstall" action="" method="post">
+<table border="0">
+<tbody>
+<tr>
+<td>Nombre: <input id="nombreb" size="42" name="nombreb" type="text"/><input name="btbuscar" type="submit" value="Cargar"/></td>
+</tr>
+</tbody>
+</table>
+</form></div>
+
+<div id="admininstall"><form id="admininstall" action="" method="post">
+<table border="0">
+<tbody>
+<tr>
+<td>Nombre:
+<input id="nombre" name="nombre" size="50" type="text" [insert_php] echo"value=".$wp_session['nombre'].">"; [/insert_php]
+</td>
+<td>
+Estado:
+<select name="estado" id="estado">
+[insert_php]
+$vcombo = "<option value='1'";
+if($wp_session['estado'] == 1) {
+	$vcombo = $vcombo. " SELECTED ";
+}
+$vcombo = $vcombo.">";
+$vcombo = $vcombo."Activa</option>"; 
+echo $vcombo;
+$vcombo = "<option value='0'";
+if($wp_session['estado'] == 0) {
+	$vcombo = $vcombo. " SELECTED ";
+}
+$vcombo = $vcombo.">";
+$vcombo = $vcombo."Baja</option>"; 
+echo $vcombo;
+[/insert_php]
+</select>
+</td>
+</tr>
+<tr>
+<td>
+URL:
+<input id="url" name="url" size="50" type="text" [insert_php] echo"value=".$wp_session['url'].">"; [/insert_php]
+</td>
+<td>
+Comentario:
+<input id="comentario" name="comentario" size="50" type="text" [insert_php] echo"value=".$wp_session['comentario'].">"; [/insert_php]
+</td>
+</tr>
+<tr>
+<td><input name="btupdate" type="submit" value="Actualizar/Crear" /></td>
+</tr>
+</tbody>
+</table>
+</form></div>
